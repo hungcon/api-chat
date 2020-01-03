@@ -245,7 +245,7 @@ router.post('/get_list_message', function(req, res){
       {$and: [{sender: req.body.chosenFriend}, {receiver: req.body.idUserInfor}]}
     ]
   }
-  Message.find(condition).populate('receiver').exec(function(err, doc){
+  Message.find(condition).populate('sender').exec(function(err, doc){
     if( err) {
       res.status(401).send({message: 'Internal server error.'});
     } else {
