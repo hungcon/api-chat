@@ -30,7 +30,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 mongoose.set('useCreateIndex', true)
-mongoose.connect('mongodb+srv://hungcon1911:hung19111997@cluster0-eisde.mongodb.net/test', {useNewUrlParser: true,  useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://hungcon1911:hung19111997@cluster0-eisde.mongodb.net/ChatApp', {useNewUrlParser: true,  useUnifiedTopology: true });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
