@@ -7,6 +7,7 @@ var cors = require('cors');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var fileUpload = require('express-fileupload');
+var log = require('./log');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
+app.use(log);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

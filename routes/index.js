@@ -4,9 +4,10 @@ var Account = require('../model/account');
 var UserInfor = require('../model/userInfor');
 var Friends = require('../model/friends');
 var Message = require('../model/message');
-const multer = require('multer');
 var md5 = require('md5');
-
+var axios = require('axios');
+const CircularJSON = require('circular-json');
+var start = new Date();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -67,13 +68,18 @@ router.post('/create_account', function(req, res, next){
  });
 
  router.post('/get_user_infor', function(req, res){
-  UserInfor.findById(req.body.userInforId, function(err, doc){
-    if(err){
-      res.status(401).send({message: 'Internal server error.'});
-    }else{
-      res.status(201).send(doc);
-    }
-  })
+   try {
+      UserInfor.findById(req.body.userInforId, function(err, doc){
+        if(err){
+         return res.status(401).send({message: 'Internal server error.'});
+        }else{
+          res.status(200).send(doc);
+        }
+      })
+   } catch (error) {
+    return res.status(401).send({message: 'Internal server error.'});
+   }
+  
 });
 
  router.post('/get_all_friend', function(req, res){
@@ -81,13 +87,18 @@ router.post('/create_account', function(req, res, next){
     if(err){
       res.status(401).send({message: 'Internal server error.'});
     }else{
-      UserInfor.find({'_id': {$in : doc.friends}}, function(err, doc){
-        if (err) {
-          res.status(401).send({message: 'Internal server error.'});
-        } else {
-          res.status(201).send(doc);
-        }
-      })
+      try {
+        UserInfor.find({'_id': {$in : doc.friends}}, function(err, doc){
+          if (err) {
+            res.status(401).send({message: 'Internal server error.'});
+          } else {
+            res.status(201).send(doc);
+          }
+        })
+      } catch (error) {
+        res.status(401).send({message: 'Internal server error.'});
+      }
+     
     }
   })
 });
