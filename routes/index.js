@@ -85,18 +85,18 @@ router.post('/create_account', function(req, res, next){
  router.post('/get_all_friend', function(req, res){
   UserInfor.findById(req.body.userId, function(err, doc){
     if(err){
-      res.status(401).send({message: 'Internal server error.'});
+       return res.status(401).send({message: 'Internal server error.'});
     }else{
       try {
         UserInfor.find({'_id': {$in : doc.friends}}, function(err, doc){
           if (err) {
-            res.status(401).send({message: 'Internal server error.'});
+            return res.status(401).send({message: 'Internal server error.'});
           } else {
-            res.status(201).send(doc);
+           return  res.status(201).send(doc);
           }
         })
       } catch (error) {
-        res.status(401).send({message: 'Internal server error.'});
+         return res.status(401).send({message: 'Internal server error.'});
       }
      
     }

@@ -14,7 +14,7 @@ var log = function (req, res, next) {
         status: res.statusCode,
         httpVersion: req.httpVersion,
       }
-      axios.post('http://192.168.1.10:3000/store_log', temp_log)
+      axios.post('https://log-management-hust.herokuapp.com/store_log', temp_log)
       .then(res => {
           if(res.status == 200){
               console.log(OK);
