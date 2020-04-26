@@ -31,7 +31,7 @@ router.post('/sign-in', function(req, res) {
             }
           });
         } else {
-          res.status(201).send({message: 'Password is not correct.'})
+          res.status(401).send({message: 'Password is not correct.'})
         }
       }
     }
